@@ -22,7 +22,7 @@ def load_models(filepath):
     F_model_B_A.eval()
     return G_model_A_B, F_model_B_A
 
-
+'''
 def display_in_out_rec(A_B_model, B_A_model, image, mode):
     """
     Displaying images like in article
@@ -51,6 +51,8 @@ def display_in_out_rec(A_B_model, B_A_model, image, mode):
     plt.show()
     return image, out, rec
 
+
+
 def process_image_from_filepath(A_B_model, B_A_model, filepath, mode):
     image = PIL.Image.open(filepath)
     im, out, _ = display_in_out_rec(A_B_model, B_A_model, transform(image), mode)
@@ -62,7 +64,7 @@ def process_image_from_filepath(A_B_model, B_A_model, filepath, mode):
     ax.axis('off')
     plt.savefig(fr"./images/results/{filepath.split(r'/')[-1]}")
 
-
+'''
 def im_proc(A_B_model, B_A_model, image, mode):
     if mode == 'A2B':
         out = A_B_model(image).detach().cpu()
@@ -74,7 +76,7 @@ def im_proc(A_B_model, B_A_model, image, mode):
 
 def process_image_from_image(A_B_model, B_A_model, image, mode):
     image = PIL.Image.open(io.BytesIO(image.read()))
-    im, out, _ = display_in_out_rec(A_B_model, B_A_model, transform(image), mode)
+    im, out, _ = im_proc(A_B_model, B_A_model, transform(image), mode)
     return transforms.ToPILImage()(out*0.5 + 0.5)
     fig, ax = plt.subplots(1, 1)
     ax.imshow(transforms.ToPILImage()(im*0.5 + 0.5))
@@ -84,18 +86,18 @@ def process_image_from_image(A_B_model, B_A_model, image, mode):
     ax.axis('off')
     
 
-def main():
-    model_A_B, model_B_A = load_models(r"./weights/")
-    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/sunset.jpg", "B2A")
-    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/sunset_spb.jpg", "B2A")
-    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/dog.jpg", "B2A")
-    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/1.jpg", "B2A")
-    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/2.jpg", "B2A")
-    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/3.jpg", "B2A")
-    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/4.jpg", "B2A")
-    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/5.jpg", "B2A")
-    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/6.jpg", "B2A")
-    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/7.jpg", "B2A")
+#def main():
+#    model_A_B, model_B_A = load_models(r"./weights/")
+#    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/sunset.jpg", "B2A")
+#    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/sunset_spb.jpg", "B2A")
+#    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/dog.jpg", "B2A")
+#    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/1.jpg", "B2A")
+#   process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/2.jpg", "B2A")
+#    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/3.jpg", "B2A")
+#    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/4.jpg", "B2A")
+#   process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/5.jpg", "B2A")
+#    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/6.jpg", "B2A")
+#    process_image_from_filepath(model_A_B, model_B_A, r"./images/pics/7.jpg", "B2A")
 
 
 if __name__=='__main__':
