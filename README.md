@@ -1,0 +1,1 @@
+[Ссылка на приложение](https://dlsfinal-v3rs6zfqf3m.streamlit.app/)
