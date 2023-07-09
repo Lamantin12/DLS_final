@@ -1,5 +1,6 @@
 import streamlit as st
 from model import usage
+import gc
 
 st.set_page_config(layout='wide')
 
@@ -14,6 +15,7 @@ def app(model_A_B, model_B_A):
     in_image = st.file_uploader("load image here", [".jpg"])
     confirm_button = st.button("confirm")
     inp, out = st.columns(2)
+    gc.collect()
     if in_image is None:
         return
     print(type(in_image))
@@ -21,6 +23,7 @@ def app(model_A_B, model_B_A):
     if confirm_button:  
         inp.image(in_image)
         out.image(usage.process_image_from_image(model_A_B, model_B_A, in_image, "B2A"))
+    gc.collect()
 
 
 

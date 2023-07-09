@@ -1,11 +1,7 @@
 #%%
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 import PIL
 from torchvision import transforms
 import torch
-import torch.nn as nn
 import model.models as models
 import io
 torch.manual_seed(42)
