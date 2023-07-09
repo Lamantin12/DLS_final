@@ -8,6 +8,7 @@ import gc
 torch.manual_seed(42)
 
 transform = transforms.Compose([
+        transforms.Resize((256, 256)),
         transforms.ToTensor(),
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])
@@ -79,7 +80,7 @@ def process_image_from_image(A_B_model, B_A_model, image, mode):
     image = PIL.Image.open(io.BytesIO(image.read()))
     out= im_proc(A_B_model, B_A_model, transform(image), mode)
     gc.collect()
-    return transforms.ToPILImage()(out*0.5 + 0.5)
+    return transforms.Resize(image.size)(transforms.ToPILImage()(out*0.5 + 0.5))
     fig, ax = plt.subplots(1, 1)
     ax.imshow(transforms.ToPILImage()(im*0.5 + 0.5))
     ax.axis('off')
